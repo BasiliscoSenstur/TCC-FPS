@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCameraController : MonoBehaviour
@@ -10,7 +9,6 @@ public class PlayerCameraController : MonoBehaviour
     {
         
     }
-
     void LateUpdate()
     {
         transform.position = camTarget.position;
