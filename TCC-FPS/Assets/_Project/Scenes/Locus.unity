@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 332202579}
   - component: {fileID: 332202580}
   - component: {fileID: 332202581}
+  - component: {fileID: 332202582}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -326,7 +327,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 332202578}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e81f0d3f6e3ee7c4ba887ce2b6fe3083, type: 3}
   m_Name: 
@@ -344,6 +345,34 @@ MonoBehaviour:
     m_Bits: 64
   gravityModifier: 6
   jumpForce: 20
+--- !u!114 &332202582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332202578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31db3f08ee84dc84288f1369adfed55b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 332202580}
+  eyeCamera: {fileID: 769903699}
+  moveSpeed: 7
+  jumpForce: 54
+  gravityMultiplier: 54
+  canJump: 0
+  groundCheckPoint: {fileID: 169947545}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
+  moveInput: {x: 0, y: 0, z: 0}
+  mouseInput: {x: 0, y: 0}
+  sensibility: 3
+  invertX: 0
+  invertY: 0
+  STATE: 
 --- !u!1 &546447286
 GameObject:
   m_ObjectHideFlags: 0
