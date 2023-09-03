@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-    //[Header("Movement")]
+    [Header("Movement")]
     public CharacterController controller;
     public float moveSpeed;
     public float jumpForce;
@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour
     public int sensibility;
     public bool invertX, invertY;
 
+    [Header("Animations")]
+    Animator anim;
+    public string currenAnimation;
+
     [Header("State")]
     public string STATE;
     public string TESTE;
@@ -35,6 +39,7 @@ public class PlayerController : MonoBehaviour
 
     public void Start()
     {
+        anim = GetComponent<Animator>();
         currentState = idle;
         currentState.EnterState(this);
     }
@@ -108,5 +113,15 @@ public class PlayerController : MonoBehaviour
     public void Jump()
     {
         moveInput.y += jumpForce;
+    }
+
+    public void ChangeAnimation(string newAnimation)
+    {
+        if (currenAnimation == newAnimation)
+        {
+            return;
+        }
+        anim.Play(newAnimation);
+        currenAnimation = newAnimation;
     }
 }

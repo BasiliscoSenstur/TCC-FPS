@@ -4,7 +4,7 @@ public class WalkingState : Abstract
 {
     public override void EnterState(PlayerController player)
     {
-
+        player.ChangeAnimation("Player_Walk");
     }
     public override void LogicsUpdateState(PlayerController player)
     {

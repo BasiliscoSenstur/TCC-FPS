@@ -5,6 +5,7 @@ public class RunningState : Abstract
     float original;
     public override void EnterState(PlayerController player)
     {
+        player.ChangeAnimation("Player_Run");
         original = player.moveSpeed;
         player.moveSpeed = 12;
     }

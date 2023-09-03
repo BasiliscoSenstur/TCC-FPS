@@ -4,7 +4,7 @@ public class IdleState : Abstract
 {
     public override void EnterState(PlayerController player)
     {
-
+        player.ChangeAnimation("Player_Idle");
     }
     public override void LogicsUpdateState(PlayerController player)
     {

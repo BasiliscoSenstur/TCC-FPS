@@ -5,10 +5,11 @@ public class JumpingState : Abstract
     public bool run;
     public override void EnterState(PlayerController player)
     {
-
+        player.ChangeAnimation("Player_Idle");
     }
     public override void LogicsUpdateState(PlayerController player)
     {
+        //Verifica se player quer chegar no chão correndo
         if (Input.GetKey(KeyCode.LeftShift))
         {
             run = true;
