@@ -332,10 +332,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 332202580}
+  moveSpeed: 5
+  jumpForce: 50
   eyeCamera: {fileID: 769903699}
-  moveSpeed: 7
-  jumpForce: 18
-  gravityMultiplier: 7
+  gravityModifier: 2
   canJump: 0
   groundCheckPoint: {fileID: 169947545}
   whatIsGround:
@@ -347,6 +347,7 @@ MonoBehaviour:
   invertX: 0
   invertY: 0
   STATE: 
+  TESTE: 
 --- !u!1 &546447286
 GameObject:
   m_ObjectHideFlags: 0

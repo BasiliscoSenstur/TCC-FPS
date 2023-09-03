@@ -6,10 +6,14 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Movement")]
+    //[Header("Movement")]
     public CharacterController controller;
+    public float moveSpeed;
+    public float jumpForce;
     public Transform eyeCamera;
-    public float moveSpeed, jumpForce;
+
+    public float gravityModifier;
+
     public bool canJump;
     public Transform groundCheckPoint;
     public LayerMask whatIsGround;
@@ -22,20 +26,24 @@ public class PlayerController : MonoBehaviour
 
     [Header("State")]
     public string STATE;
+    public string TESTE;
     public Abstract currentState;
-    public IdleState idleState = new IdleState();
-    public RunningState runningState = new RunningState();
-    public JumpingState jumpingState = new JumpingState();
+    public IdleState idle = new IdleState();
+    public RunningState running = new RunningState();
+    public WalkingState walking = new WalkingState();
+    public JumpingState jumping = new JumpingState();
 
     public void Start()
     {
-        currentState = idleState;
+        currentState = idle;
         currentState.EnterState(this);
     }
 
     public void Update()
     {
-        //Movement Inputs
+        float yStored = moveInput.y;
+
+        ////Movement Inputs
         Vector3 verticalInput = transform.forward * Input.GetAxis("Vertical");
         Vector3 horizontalInput = transform.right * Input.GetAxis("Horizontal");
 
@@ -43,8 +51,24 @@ public class PlayerController : MonoBehaviour
         moveInput.Normalize();
         moveInput *= moveSpeed;
 
-        //Jump
+        moveInput.y = yStored;
+
+        //Gravity
+        if (currentState == jumping)
+        {
+            moveInput.y += Physics.gravity.y * gravityModifier * Time.deltaTime;
+        }
+        else
+        {
+            moveInput.y = Physics.gravity.y * gravityModifier * Time.deltaTime;
+        }
+
+        ////Jump
         canJump = Physics.OverlapSphere(groundCheckPoint.position, 0.25f, whatIsGround).Length > 0;
+        if (!canJump)
+        {
+            SwitchState(jumping);
+        }
 
         //Rotation - Mouse Input
         mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * sensibility;
@@ -57,14 +81,12 @@ public class PlayerController : MonoBehaviour
             mouseInput.y = -mouseInput.y;
         }
 
+        Rotation();
+
         currentState.LogicsUpdateState(this);
 
         STATE = currentState.ToString();
-    }
-
-    public void FixedUpdate()
-    {
-        currentState.PhysicsUpdateState(this);
+        TESTE = jumping.run.ToString();
     }
 
     public void SwitchState(Abstract newState)
@@ -73,7 +95,6 @@ public class PlayerController : MonoBehaviour
         currentState = newState;
         currentState.EnterState(this);
     }
-
     public void Movement()
     {
         controller.Move(moveInput * Time.deltaTime);
@@ -83,6 +104,7 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, mouseInput.x, 0f));
         eyeCamera.rotation = Quaternion.Euler(eyeCamera.transform.rotation.eulerAngles + new Vector3(-mouseInput.y, 0f, 0f));
     }
+
     public void Jump()
     {
         moveInput.y += jumpForce;

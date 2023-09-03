@@ -2,23 +2,35 @@ using UnityEngine;
 
 public class JumpingState : Abstract
 {
+    public bool run;
     public override void EnterState(PlayerController player)
     {
-        //Debug.Log("!");
+
     }
     public override void LogicsUpdateState(PlayerController player)
     {
-        //if (player.controller.isGrounded)
-        //{
-        //    player.SwitchState(player.idleState);
-        //}
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            run = true;
+        }
+        else
+        {
+            run = false;
+        }
 
-        //player.Rotation();
-        //player.Movement();
-    }
-    public override void PhysicsUpdateState(PlayerController player)
-    {
+        if (player.canJump)
+        {
+            if (!run)
+            {
+                player.SwitchState(player.idle);
+            }
+            else
+            {
+                player.SwitchState(player.running);
+            }
+        }
 
+        player.Movement();
     }
     public override void ExitState(PlayerController player)
     {

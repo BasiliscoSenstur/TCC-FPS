@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class IdleState : Abstract
+public class WalkingState : Abstract
 {
     public override void EnterState(PlayerController player)
     {
@@ -8,14 +8,19 @@ public class IdleState : Abstract
     }
     public override void LogicsUpdateState(PlayerController player)
     {
-        //Walking
-        if(player.moveInput.x != 0)
+        //Idle
+        if(player.moveInput.x == 0)
         {
-            player.SwitchState(player.walking);
+            if(player.moveInput.z == 0)
+            {
+                player.SwitchState(player.idle);
+            }
         }
-        if(player.moveInput.z != 0)
+
+        //Running
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            player.SwitchState(player.walking);
+            player.SwitchState(player.running);
         }
 
         //Jumping
