@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,7 +9,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     public CharacterController controller;
     public Transform eyeCamera;
-    public float moveSpeed, jumpForce, gravityMultiplier;
+    public float moveSpeed, jumpForce;
     public bool canJump;
     public Transform groundCheckPoint;
     public LayerMask whatIsGround;
@@ -42,14 +43,8 @@ public class PlayerController : MonoBehaviour
         moveInput.Normalize();
         moveInput *= moveSpeed;
 
-        float yStored = moveInput.y;
-
-        moveInput.y += Physics.gravity.y * gravityMultiplier * Time.deltaTime;
-
-        if (controller.isGrounded)
-        {
-            moveInput.y = Physics.gravity.y * gravityMultiplier * Time.deltaTime;
-        }
+        //Jump
+        canJump = Physics.OverlapSphere(groundCheckPoint.position, 0.25f, whatIsGround).Length > 0;
 
         //Rotation - Mouse Input
         mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * sensibility;
@@ -60,14 +55,6 @@ public class PlayerController : MonoBehaviour
         if (invertY)
         {
             mouseInput.y = -mouseInput.y;
-        }
-
-        //Jump
-        canJump = Physics.OverlapSphere(groundCheckPoint.position, 0.25f, whatIsGround).Length > 0;
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            Jump();
         }
 
         currentState.LogicsUpdateState(this);
@@ -99,6 +86,5 @@ public class PlayerController : MonoBehaviour
     public void Jump()
     {
         moveInput.y += jumpForce;
-        SwitchState(jumpingState);
     }
 }
