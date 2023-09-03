@@ -24,6 +24,12 @@ public class IdleState : Abstract
             player.Jump();
         }
 
+        //Shot
+        if(Input.GetButtonDown("Fire1"))
+        {
+            player.Shot();
+        }
+
         player.Movement();
     }
     public override void ExitState(PlayerController player)

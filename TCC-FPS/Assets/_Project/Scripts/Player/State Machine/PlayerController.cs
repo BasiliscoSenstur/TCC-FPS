@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheckPoint;
     public LayerMask whatIsGround;
 
+    //Shot
+    public Transform firePoint;
+    public GameObject bullet;
+
     [Header("Inputs")]
     public Vector3 moveInput;
     public Vector2 mouseInput;
@@ -123,5 +127,10 @@ public class PlayerController : MonoBehaviour
         }
         anim.Play(newAnimation);
         currenAnimation = newAnimation;
+    }
+
+    public void Shot()
+    {
+        Instantiate(bullet, firePoint.position, firePoint.rotation);
     }
 }
