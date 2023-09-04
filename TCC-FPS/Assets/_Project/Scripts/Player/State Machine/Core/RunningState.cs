@@ -12,7 +12,11 @@ public class RunningState : Abstract
     public override void LogicsUpdateState(PlayerController player)
     {
         //Stop Running
-        if(Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            player.SwitchState(player.walking);
+        }
+        if (player.moveInput.x == 0 || player.moveInput.z == 0)
         {
             player.SwitchState(player.walking);
         }
