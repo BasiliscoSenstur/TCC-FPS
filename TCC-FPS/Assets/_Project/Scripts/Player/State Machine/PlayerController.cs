@@ -104,21 +104,6 @@ public class PlayerController : MonoBehaviour
         currentState = newState;
         currentState.EnterState(this);
     }
-    public void Movement()
-    {
-        controller.Move(moveInput * Time.deltaTime);
-    }
-    public void Rotation()
-    {
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, mouseInput.x, 0f));
-        eyeCamera.rotation = Quaternion.Euler(eyeCamera.transform.rotation.eulerAngles + new Vector3(-mouseInput.y, 0f, 0f));
-    }
-
-    public void Jump()
-    {
-        moveInput.y += jumpForce;
-    }
-
     public void ChangeAnimation(string newAnimation)
     {
         if (currenAnimation == newAnimation)
@@ -128,9 +113,26 @@ public class PlayerController : MonoBehaviour
         anim.Play(newAnimation);
         currenAnimation = newAnimation;
     }
-
+    public void Movement()
+    {
+        controller.Move(moveInput * Time.deltaTime);
+    }
+    public void Rotation()
+    {
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, mouseInput.x, 0f));
+        eyeCamera.rotation = Quaternion.Euler(eyeCamera.transform.rotation.eulerAngles + new Vector3(-mouseInput.y, 0f, 0f));
+    }
+    public void Jump()
+    {
+        moveInput.y += jumpForce;
+    }
     public void Shot()
     {
+        RaycastHit hit;
+        if(Physics.Raycast(eyeCamera.position, eyeCamera.forward,out hit, 50f))
+        {
+            firePoint.LookAt(hit.point);
+        }
         Instantiate(bullet, firePoint.position, firePoint.rotation);
     }
 }
