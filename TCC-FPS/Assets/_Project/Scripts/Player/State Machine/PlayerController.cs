@@ -6,6 +6,12 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+    //---------------------------------------//
     [Header("Movement")]
     public CharacterController controller;
     public float moveSpeed;
@@ -125,6 +131,9 @@ public class PlayerController : MonoBehaviour
     public void Jump()
     {
         moveInput.y += jumpForce;
+        moveInput.y = Mathf.Sqrt(jumpForce * -2f * Physics.gravity.y);
+
+        controller.Move(moveInput);
     }
     public void Shot()
     {

@@ -23,7 +23,8 @@ public class BulletController : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Destroy(other.gameObject);
+            other.gameObject.GetComponent<EnemyHealthController>().DamageEnemy(1);
+            //Destroy(other.gameObject);
         }
 
         Destroy(gameObject);
