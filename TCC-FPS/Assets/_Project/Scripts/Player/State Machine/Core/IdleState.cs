@@ -25,7 +25,7 @@ public class IdleState : Abstract
         }
 
         //Shot
-        if(Input.GetButtonDown("Fire1"))
+        if (Input.GetMouseButtonDown(0))
         {
             player.Shot();
         }

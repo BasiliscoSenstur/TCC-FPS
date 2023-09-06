@@ -7,15 +7,16 @@ public class EnemyController : MonoBehaviour
 {
     public float moveSpeed;
 
-    Vector3 targetPosition;
+    Vector3 targetPosition, startPosition;
     public NavMeshAgent agent;
 
     public float chaseDistance, stopChaseDistance;
     bool isChasing;
 
+    public float chaseCounter;
     void Start()
     {
-        
+        startPosition = transform.position;
     }
 
     void Update()
@@ -29,6 +30,16 @@ public class EnemyController : MonoBehaviour
             {
                 isChasing = true;
             }
+
+            if (chaseCounter > 0)
+            {
+                chaseCounter -= Time.deltaTime;
+            }
+            if (chaseCounter <= 0)
+            {
+                chaseCounter = 0;
+                agent.destination = startPosition;
+            }
         }
         else
         {
@@ -37,6 +48,7 @@ public class EnemyController : MonoBehaviour
             if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) > stopChaseDistance)
             {
                 isChasing = false;
+                chaseCounter = 5f;
             }
         }
     }

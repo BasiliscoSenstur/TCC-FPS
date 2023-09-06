@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4110456014826275781}
   - component: {fileID: 3775209659137195739}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Enemy Impact Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &4110456014826275781
 ParticleSystem:
@@ -4835,7 +4835,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 29418b8865dfe9b48b964f427cedaa5a, type: 2}
+  - {fileID: 2100000, guid: 2bde3ed3af39f304aa507560fc4fb230, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
