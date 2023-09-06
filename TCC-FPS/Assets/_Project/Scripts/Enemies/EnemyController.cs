@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
     public float moveSpeed;
-    public Rigidbody body;
+
+    Vector3 targetPosition;
+    public NavMeshAgent agent;
 
     public float chaseDistance, stopChaseDistance;
     bool isChasing;
@@ -17,6 +20,9 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        targetPosition = PlayerController.instance.transform.position;
+        targetPosition.y = transform.position.y;
+
         if (!isChasing)
         {
             if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) <= chaseDistance)
@@ -26,11 +32,9 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            transform.LookAt(PlayerController.instance.transform.position);
+            agent.destination = targetPosition;
 
-            body.velocity = transform.forward * moveSpeed;
-
-            if(Vector3.Distance(transform.position, PlayerController.instance.transform.position)> stopChaseDistance)
+            if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) > stopChaseDistance)
             {
                 isChasing = false;
             }
