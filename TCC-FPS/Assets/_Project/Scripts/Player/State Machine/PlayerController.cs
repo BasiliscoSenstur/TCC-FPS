@@ -13,18 +13,16 @@ public class PlayerController : MonoBehaviour
     }
     //---------------------------------------//
     [Header("Movement")]
+    public Transform eyeCamera;
     public CharacterController controller;
     public float moveSpeed;
     public float jumpForce;
-    public Transform eyeCamera;
-
     public float gravityModifier;
-
     public bool canJump;
     public Transform groundCheckPoint;
     public LayerMask whatIsGround;
 
-    //Shot
+    [Header("Shot")]
     public Transform firePoint;
     public GameObject bullet;
 
@@ -40,7 +38,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("State")]
     public string STATE;
-    public string TESTE;
     public Abstract currentState;
     public IdleState idle = new IdleState();
     public RunningState running = new RunningState();
@@ -101,7 +98,6 @@ public class PlayerController : MonoBehaviour
         currentState.LogicsUpdateState(this);
 
         STATE = currentState.ToString();
-        TESTE = jumping.run.ToString();
     }
 
     public void SwitchState(Abstract newState)

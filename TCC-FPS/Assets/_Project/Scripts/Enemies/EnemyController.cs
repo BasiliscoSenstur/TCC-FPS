@@ -5,18 +5,31 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    public float moveSpeed;
+    [Header("State Machine")]
+    public string STATE;
+    public EnemyAbstract currentState;
+    public EnemyIdle enemyIdle = new EnemyIdle();
+    public EnemyChasing enemyChasing = new EnemyChasing();
 
-    Vector3 targetPosition, startPosition;
+    [Header("Movement")]
     public NavMeshAgent agent;
+    public Vector3 targetPosition, startPosition;
 
-    public float chaseDistance, stopChaseDistance;
-    bool isChasing;
-
+    [Header("Patrol")]
     public float chaseCounter;
+    public float chaseDistance, stopChaseDistance;
+    public bool isChasing;
+
+    [Header("Shot")]
+    public Transform firePoint;
+    public GameObject bullet;
+    public float timeBetweenShots;
+
     void Start()
     {
         startPosition = transform.position;
+        currentState = enemyIdle;
+        currentState.EnterState(this);
     }
 
     void Update()
@@ -24,32 +37,37 @@ public class EnemyController : MonoBehaviour
         targetPosition = PlayerController.instance.transform.position;
         targetPosition.y = transform.position.y;
 
-        if (!isChasing)
-        {
-            if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) <= chaseDistance)
-            {
-                isChasing = true;
-            }
+        currentState.LogicsUpdate(this);
 
-            if (chaseCounter > 0)
-            {
-                chaseCounter -= Time.deltaTime;
-            }
-            if (chaseCounter <= 0)
-            {
-                chaseCounter = 0;
-                agent.destination = startPosition;
-            }
-        }
-        else
-        {
-            agent.destination = targetPosition;
+        STATE = currentState.ToString();
+    }
 
-            if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) > stopChaseDistance)
-            {
-                isChasing = false;
-                chaseCounter = 5f;
-            }
+    public void SwitchState(EnemyAbstract newState)
+    {
+        currentState.ExitState(this);
+        currentState = newState;
+        currentState.EnterState(this);
+    }
+
+    public void Shot(int amount)
+    {
+        StartCoroutine(ShotCo(amount));
+    }
+
+    IEnumerator ShotCo(int amount)
+    {
+        for (int i = 0; i < amount; i++) 
+        {
+            Debug.Log("Shot:" + i);
+            Projectile();
+            yield return new WaitForSeconds(0.2f);
         }
+    }
+
+    public void Projectile()
+    {
+        Instantiate(bullet, firePoint.position, firePoint.rotation);
+        //timeBetweenShots = 2f;
+        Debug.Log("Enemy Shot");
     }
 }
