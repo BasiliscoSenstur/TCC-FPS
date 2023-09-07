@@ -15,14 +15,19 @@ public class EnemyController : MonoBehaviour
     public NavMeshAgent agent;
     public Vector3 targetPosition, startPosition;
 
+    [Header("Animation")]
+    public Animator anim;
+    public string currentAnimation;
+
     [Header("Patrol")]
     public float chaseCounter;
     public float chaseDistance, stopChaseDistance;
     public bool isChasing;
 
     [Header("Shot")]
-    public Transform firePoint;
+    public int fireRate;
     public GameObject bullet;
+    public Transform firePoint;
     public float timeBetweenShots;
 
     void Start()
@@ -49,6 +54,18 @@ public class EnemyController : MonoBehaviour
         currentState.EnterState(this);
     }
 
+    public void ChangeAnimation(string newAnimation)
+    {
+        if(currentAnimation == newAnimation)
+        {
+            return;
+        }
+        else
+        {
+            anim.Play(newAnimation);
+            currentAnimation = newAnimation;
+        }
+    }
     public void Shot(int amount)
     {
         StartCoroutine(ShotCo(amount));
@@ -66,8 +83,23 @@ public class EnemyController : MonoBehaviour
 
     public void Projectile()
     {
-        Instantiate(bullet, firePoint.position, firePoint.rotation);
-        //timeBetweenShots = 2f;
-        Debug.Log("Enemy Shot");
+        firePoint.LookAt(PlayerController.instance.transform.position + new Vector3(0f, 0.5f, 0f));
+
+        Vector3 targetDir = PlayerController.instance.transform.position - transform.position;
+        float angle = Vector3.SignedAngle(targetDir, transform.forward, Vector3.up);
+
+        if (Mathf.Abs(angle) < 30f)
+        {
+            agent.destination = transform.position;
+            ChangeAnimation("Enemy_Shot");
+
+            Instantiate(bullet, firePoint.position, firePoint.rotation);
+            timeBetweenShots = 2f;
+            Debug.Log("Enemy Shot");
+        }
+        else
+        {
+            timeBetweenShots = 2f;
+        }
     }
 }

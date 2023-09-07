@@ -4,7 +4,7 @@ public class EnemyChasing : EnemyAbstract
 {
     public override void EnterState(EnemyController enemy)
     {
-
+        enemy.ChangeAnimation("Enemy_Run");
     }
     public override void LogicsUpdate(EnemyController enemy)
     {
@@ -16,8 +16,7 @@ public class EnemyChasing : EnemyAbstract
         }
         if (enemy.timeBetweenShots <= 0)
         {
-            enemy.Shot(3);
-            enemy.agent.destination = enemy.transform.position;
+            enemy.Shot(enemy.fireRate);
         }
 
         if (Vector3.Distance(enemy.transform.position, PlayerController.instance.transform.position) > enemy.stopChaseDistance)
