@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     public EnemyAbstract currentState;
     public EnemyIdle enemyIdle = new EnemyIdle();
     public EnemyChasing enemyChasing = new EnemyChasing();
+    public EnemyShooting enemyShooting = new EnemyShooting();
 
     [Header("Movement")]
     public NavMeshAgent agent;
@@ -30,6 +31,9 @@ public class EnemyController : MonoBehaviour
     public Transform firePoint;
     public float timeBetweenShots;
 
+    [Header("DEBUG")]
+    public string chasingCounter;
+
     void Start()
     {
         startPosition = transform.position;
@@ -39,9 +43,6 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        targetPosition = PlayerController.instance.transform.position;
-        targetPosition.y = transform.position.y;
-
         currentState.LogicsUpdate(this);
 
         STATE = currentState.ToString();
@@ -66,19 +67,18 @@ public class EnemyController : MonoBehaviour
             currentAnimation = newAnimation;
         }
     }
-    public void Shot(int amount)
-    {
-        StartCoroutine(ShotCo(amount));
-    }
 
-    IEnumerator ShotCo(int amount)
+    public void Shot()
     {
-        for (int i = 0; i < amount; i++) 
-        {
-            Debug.Log("Shot:" + i);
-            Projectile();
-            yield return new WaitForSeconds(0.2f);
-        }
+        agent.destination = transform.position;
+        ChangeAnimation("Enemy_Shoot");
+        StartCoroutine(ShotCo());
+    }
+    IEnumerator ShotCo() 
+    {
+        Projectile();
+        yield return new WaitForSeconds(10f);
+        Debug.Log("Shot");
     }
 
     public void Projectile()
@@ -90,9 +90,6 @@ public class EnemyController : MonoBehaviour
 
         if (Mathf.Abs(angle) < 30f)
         {
-            agent.destination = transform.position;
-            ChangeAnimation("Enemy_Shot");
-
             Instantiate(bullet, firePoint.position, firePoint.rotation);
             timeBetweenShots = 2f;
             Debug.Log("Enemy Shot");

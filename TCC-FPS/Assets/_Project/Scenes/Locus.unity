@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 43049955}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -255,8 +255,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 43049952}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.68, y: 1, z: 20.12}
+  m_LocalRotation: {x: -0, y: -0.9659261, z: -0, w: 0.2588182}
+  m_LocalPosition: {x: 21.7, y: 1, z: 21.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -265,7 +265,7 @@ Transform:
   - {fileID: 1969459008}
   m_Father: {fileID: 0}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -150, z: 0}
 --- !u!114 &43049954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,6 +296,7 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0, z: 0}
   startPosition: {x: 0, y: 0, z: 0}
   anim: {fileID: 1632166151}
+  currentAnimation: 
   chaseCounter: 0
   chaseDistance: 10
   stopChaseDistance: 15
@@ -340,7 +341,7 @@ NavMeshAgent:
   m_Speed: 7
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 600
+  m_AngularSpeed: 50000
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -631,7 +632,7 @@ GameObject:
   - component: {fileID: 332202579}
   - component: {fileID: 332202583}
   - component: {fileID: 332202580}
-  - component: {fileID: 332202582}
+  - component: {fileID: 332202584}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -678,40 +679,9 @@ CharacterController:
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
+  m_SkinWidth: 0.0001
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &332202582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 332202578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31db3f08ee84dc84288f1369adfed55b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eyeCamera: {fileID: 769903699}
-  controller: {fileID: 332202580}
-  moveSpeed: 7
-  jumpForce: 5
-  gravityModifier: 2
-  canJump: 0
-  groundCheckPoint: {fileID: 169947545}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 64
-  firePoint: {fileID: 576001182}
-  bullet: {fileID: 2507797363306103509, guid: f8d5af78ca0381a42a1d31a2be8a9e25, type: 3}
-  moveInput: {x: 0, y: 0, z: 0}
-  mouseInput: {x: 0, y: 0}
-  sensibility: 3
-  invertX: 0
-  invertY: 0
-  currenAnimation: 
-  STATE: 
 --- !u!95 &332202583
 Animator:
   serializedVersion: 5
@@ -733,6 +703,32 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &332202584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332202578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0f013f7cbab1f1469a90b2d79f197bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eyeCamera: {fileID: 769903699}
+  controller: {fileID: 332202580}
+  speed: 7
+  jumpForce: 7
+  firePoint: {fileID: 576001182}
+  bullet: {fileID: 2507797363306103509, guid: f8d5af78ca0381a42a1d31a2be8a9e25, type: 3}
+  moveInput: {x: 0, y: 0, z: 0}
+  mouseInput: {x: 0, y: 0}
+  velocity: {x: 0, y: 0, z: 0}
+  sensibility: 3
+  invertX: 0
+  invertY: 0
+  currentAnimation: 
+  STATE: 
 --- !u!1 &393635275
 GameObject:
   m_ObjectHideFlags: 0

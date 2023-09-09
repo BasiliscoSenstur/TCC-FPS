@@ -12,6 +12,7 @@ public class EnemyIdle : EnemyAbstract
     {
         if (Vector3.Distance(enemy.transform.position, PlayerController.instance.transform.position) <= enemy.chaseDistance)
         {
+            enemy.isChasing = true;
             enemy.SwitchState(enemy.enemyChasing);
         }
 
@@ -25,9 +26,13 @@ public class EnemyIdle : EnemyAbstract
             enemy.agent.destination = enemy.startPosition;
         }
 
-        if(enemy.transform.position == enemy.startPosition) 
+        if (Vector3.Distance(enemy.transform.position, enemy.startPosition) <= 0.2f || Vector3.Distance(enemy.transform.position, enemy.targetPosition) <= 0.2f) 
         {
             enemy.ChangeAnimation("Enemy_Idle");
+        }
+        else
+        {
+            enemy.ChangeAnimation("Enemy_Run");
         }
     }
     public override void ExitState(EnemyController enemy)

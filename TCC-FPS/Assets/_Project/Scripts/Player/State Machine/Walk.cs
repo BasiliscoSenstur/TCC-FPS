@@ -1,27 +1,22 @@
 using UnityEngine;
 
-public class IdleState : Abstract
+public class Walk : Abstract
 {
     public override void EnterState(PlayerController player)
     {
-        player.ChangeAnimation("Player_Idle");
+        player.ChangeAnimation("Player_Walk");
     }
     public override void LogicsUpdateState(PlayerController player)
     {
-        //Walking
-        if(player.moveInput.x != 0)
+        if (player.velocity.x == 0 && player.velocity.z == 0)
         {
-            player.SwitchState(player.walking);
-        }
-        if(player.moveInput.z != 0)
-        {
-            player.SwitchState(player.walking);
+            player.SwitchState(player.idle);
         }
 
-        //Jumping
-        if (Input.GetButtonDown("Jump") && player.canJump)
+        //Run
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            player.Jump();
+            player.SwitchState(player.run);
         }
 
         //Shot

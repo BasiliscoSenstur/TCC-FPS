@@ -1,30 +1,24 @@
 using UnityEngine;
 
-public class RunningState : Abstract
+public class Run : Abstract
 {
-    float original;
+    float originalSpeed;
     public override void EnterState(PlayerController player)
     {
         player.ChangeAnimation("Player_Run");
-        original = player.moveSpeed;
-        player.moveSpeed = 12;
+        originalSpeed = player.speed;
+        player.speed = 14;
     }
     public override void LogicsUpdateState(PlayerController player)
     {
-        //Stop Running
+        //Running
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            player.SwitchState(player.walking);
+            player.SwitchState(player.walk);
         }
         if (player.moveInput.x == 0 || player.moveInput.z == 0)
         {
-            player.SwitchState(player.walking);
-        }
-
-        //Jumping
-        if (Input.GetButtonDown("Jump") && player.canJump)
-        {
-            player.Jump();
+            player.SwitchState(player.walk);
         }
 
         //Shot
@@ -37,6 +31,6 @@ public class RunningState : Abstract
     }
     public override void ExitState(PlayerController player)
     {
-        player.moveSpeed = original;
+        player.speed = originalSpeed;
     }
 }
