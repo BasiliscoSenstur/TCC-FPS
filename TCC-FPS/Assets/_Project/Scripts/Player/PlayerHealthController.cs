@@ -1,9 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 
-public class EnemyHealthController : MonoBehaviour
+public class PlayerHealthController : MonoBehaviour
 {
+    public static PlayerHealthController instance;
+    private void Awake()
+    {
+        instance = this;
+    }
     public int health;
     void Start()
     {
@@ -15,10 +21,10 @@ public class EnemyHealthController : MonoBehaviour
         
     }
 
-    public void DemageEnemy(int amount)
+    public void DemagePlayer(int amount)
     {
         health -= amount;
-        if(health <= 0)
+        if (health <= 0)
         {
             Destroy(gameObject);
         }

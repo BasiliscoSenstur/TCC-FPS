@@ -8,10 +8,7 @@ public class BulletController : MonoBehaviour
     public float bulletSpeed;
     Rigidbody rb;
     public GameObject impactEffect;
-
     public bool playerBullet, enemyBullet;
-
-    public float HEAD;
 
     void Start()
     {
@@ -28,13 +25,22 @@ public class BulletController : MonoBehaviour
     {
         if (other.CompareTag("Enemy") && playerBullet)
         {
-            other.gameObject.GetComponent<EnemyHealthController>().DamageEnemy(1);
-            //Destroy(other.gameObject);
+            if (transform.position.y > 1.3)
+            {
+                other.gameObject.GetComponent<EnemyHealthController>().DemageEnemy(10);
+                Debug.Log("Headshot");
+            }
+            else
+            {
+                other.gameObject.GetComponent<EnemyHealthController>().DemageEnemy(1);
+            }
+
+            Debug.Log("Hit Enemy at " + transform.position);
         }
 
         if (other.CompareTag("Player") && enemyBullet)
         {
-            //Player Health
+            PlayerHealthController.instance.DemagePlayer(1);
             Debug.Log("Hit Player at " + transform.position);
         }
 
