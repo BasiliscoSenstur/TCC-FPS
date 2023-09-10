@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,25 +9,26 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance;
 
     [Header("Movement")]
-    public Transform eyeCamera;
     public CharacterController controller;
-    public float speed, jumpForce;
-    float ySpeed;
+    public Transform eyeCamera;
+    public float speed;
+    public float jumpForce;
+    [HideInInspector] public float ySpeed;
+
+    [Header("Animation")]
+    public Animator anim;
+    public string currentAnimation;
 
     [Header("Shot")]
     public Transform firePoint;
     public GameObject bullet;
 
     [Header("Inputs")]
+    public int sensibility;
+    public bool invertX, invertY;
     public Vector3 moveInput;
     public Vector2 mouseInput;
     public Vector3 velocity;
-    public int sensibility;
-    public bool invertX, invertY;
-
-    [Header("Animations")]
-    Animator anim;
-    public string currentAnimation;
 
     [Header("State")]
     public string STATE;
@@ -38,17 +40,19 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
         controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
+        instance = this;
     }
     void Start()
     {
         currentState = idle;
+        currentState.EnterState(this);
     }
 
     void Update()
     {
+        //Inputs
         Vector3 verticalInput = transform.forward * Input.GetAxis("Vertical");
         Vector3 horizontalInput = transform.right * Input.GetAxis("Horizontal");
 
@@ -56,8 +60,10 @@ public class PlayerController : MonoBehaviour
         moveInput.Normalize();
         moveInput *= speed;
 
+        //Gravity
         ySpeed += Physics.gravity.y * Time.deltaTime;
 
+        //Jump
         if (controller.isGrounded)
         {
             ySpeed = -0.2f;
@@ -66,14 +72,13 @@ public class PlayerController : MonoBehaviour
                 ySpeed = jumpForce;
             }
         }
-
-        velocity = moveInput;
-        velocity.y = ySpeed;
-
-        if (velocity.y > 0.1)
+        else
         {
             SwitchState(jump);
         }
+
+        velocity = moveInput;
+        velocity.y = ySpeed;
 
         //Rotation - Mouse Input
         mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * sensibility;
@@ -99,15 +104,6 @@ public class PlayerController : MonoBehaviour
         currentState = newState;
         currentState.EnterState(this);
     }
-    public void ChangeAnimation(string newAnimation)
-    {
-        if (currentAnimation == newAnimation)
-        {
-            return;
-        }
-        anim.Play(newAnimation);
-        currentAnimation = newAnimation;
-    }
 
     public void Rotation()
     {
@@ -118,6 +114,16 @@ public class PlayerController : MonoBehaviour
     public void Movement()
     {
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    public void ChangeAnimation(string newAnimation)
+    {
+        if(currentAnimation == newAnimation)
+        {
+            return;
+        }
+        currentAnimation = newAnimation;
+        anim.Play(currentAnimation);
     }
 
     public void Shot()

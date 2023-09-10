@@ -2,11 +2,9 @@ using UnityEngine;
 
 public class EnemyChasing : EnemyAbstract
 {
-    public float counter;
     public override void EnterState(EnemyController enemy)
     {
-        enemy.ChangeAnimation("Enemy_Run");
-        counter = enemy.timeBetweenShots;
+        enemy.aimCounter = enemy.aimTime;
     }
     public override void LogicsUpdate(EnemyController enemy)
     {
@@ -15,21 +13,16 @@ public class EnemyChasing : EnemyAbstract
 
         enemy.agent.destination = enemy.targetPosition;
 
-        if (enemy.timeBetweenShots > 0)
+        if (enemy.aimCounter > 0)
         {
-            enemy.timeBetweenShots -= Time.deltaTime;
-        }
-        if(enemy.timeBetweenShots <= 0)
-        {
-            enemy.SwitchState(enemy.enemyShooting);
+            enemy.SwitchState(enemy.shooting);
         }
 
-
-        if (Vector3.Distance(enemy.transform.position, PlayerController.instance.transform.position) > enemy.stopChaseDistance)
+        if (Vector3.Distance(enemy.transform.position, PlayerController.instance.transform.position) >= enemy.stopChasingDistance)
         {
             enemy.isChasing = false;
-            enemy.chaseCounter = 5f;
-            enemy.SwitchState(enemy.enemyIdle);
+            enemy.stopChasingCounter = 5f;
+            enemy.SwitchState(enemy.idle);
         }
     }
     public override void ExitState(EnemyController enemy)

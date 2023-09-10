@@ -1,48 +1,35 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyShooting : EnemyAbstract
 {
-    float wait;
+    public float angle;
     public override void EnterState(EnemyController enemy)
     {
-        enemy.ChangeAnimation("Enemy_Shoot");
-        wait = 1;
+
     }
     public override void LogicsUpdate(EnemyController enemy)
     {
-        for (int i = 0; i < enemy.fireRate; i++)
-        {
-            enemy.Shot();
-        }
+        enemy.aimCounter -= Time.deltaTime;
 
-        if (wait > 0)
-        {
-            wait -= Time.deltaTime;
-        }
-        if (wait <= 0)
-        {
-            wait = 0;
-            enemy.SwitchState(enemy.enemyChasing);
-        }
+        enemy.firePoint.LookAt(PlayerController.instance.transform.position + new Vector3(0f, 0.5f, 0f));
 
-        //if (enemy.enemyChasing.counter > 0)
-        //{
-        //    enemy.enemyChasing.counter -= Time.deltaTime;
-        //}
-        //if (enemy.enemyChasing.counter <= 0)
-        //{
-        //    if (enemy.isChasing)
-        //    {
-        //        enemy.SwitchState(enemy.enemyChasing);
-        //    }
-        //    else
-        //    {
-        //        enemy.SwitchState(enemy.enemyIdle);
-        //    }
-        //}
+        Vector3 targetDir = PlayerController.instance.transform.position - enemy.transform.position;
+        angle = Vector3.SignedAngle(targetDir, enemy.transform.forward, Vector3.up);
 
-        enemy.chasingCounter = wait.ToString();
+        if (enemy.aimCounter <= 0)
+        {
+            Debug.Log("Shot");
+            enemy.Shot(3);
+
+            if (enemy.isChasing)
+            {
+                enemy.SwitchState(enemy.chasing);
+            }
+            else
+            {
+                enemy.SwitchState(enemy.idle);
+            }
+        }
     }
     public override void ExitState(EnemyController enemy)
     {

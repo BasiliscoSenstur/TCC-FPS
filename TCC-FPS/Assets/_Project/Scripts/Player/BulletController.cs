@@ -11,6 +11,8 @@ public class BulletController : MonoBehaviour
 
     public bool playerBullet, enemyBullet;
 
+    public float HEAD;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();

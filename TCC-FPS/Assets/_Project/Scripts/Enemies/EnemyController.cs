@@ -1,50 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Timeline;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
+    public NavMeshAgent agent;
+    public bool isChasing;
+    [HideInInspector] public Vector3 startPosition, targetPosition;
+
+    public float chaseDistance, stopChasingDistance;
+    public float stopChasingCounter;
+
+    public float aimTime, aimCounter;
+
+    [Header("State Machine")]
+    public Transform firePoint;
+    public GameObject projectile;
+
     [Header("State Machine")]
     public string STATE;
-    public EnemyAbstract currentState;
-    public EnemyIdle enemyIdle = new EnemyIdle();
-    public EnemyChasing enemyChasing = new EnemyChasing();
-    public EnemyShooting enemyShooting = new EnemyShooting();
-
-    [Header("Movement")]
-    public NavMeshAgent agent;
-    public Vector3 targetPosition, startPosition;
-
-    [Header("Animation")]
-    public Animator anim;
-    public string currentAnimation;
-
-    [Header("Patrol")]
-    public float chaseCounter;
-    public float chaseDistance, stopChaseDistance;
-    public bool isChasing;
-
-    [Header("Shot")]
-    public int fireRate;
-    public GameObject bullet;
-    public Transform firePoint;
-    public float timeBetweenShots;
-
-    [Header("DEBUG")]
-    public string chasingCounter;
+    EnemyAbstract currentState;
+    public EnemyIdle idle = new EnemyIdle();
+    public EnemyChasing chasing = new EnemyChasing();
+    public EnemyShooting shooting = new EnemyShooting();
 
     void Start()
     {
         startPosition = transform.position;
-        currentState = enemyIdle;
+
+        currentState = idle;
         currentState.EnterState(this);
     }
 
     void Update()
     {
         currentState.LogicsUpdate(this);
-
         STATE = currentState.ToString();
     }
 
@@ -55,48 +47,14 @@ public class EnemyController : MonoBehaviour
         currentState.EnterState(this);
     }
 
-    public void ChangeAnimation(string newAnimation)
+    public void Shot(int amount)
     {
-        if(currentAnimation == newAnimation)
+        if (Mathf.Abs(shooting.angle) < 30f)
         {
-            return;
-        }
-        else
-        {
-            anim.Play(newAnimation);
-            currentAnimation = newAnimation;
-        }
-    }
-
-    public void Shot()
-    {
-        agent.destination = transform.position;
-        ChangeAnimation("Enemy_Shoot");
-        StartCoroutine(ShotCo());
-    }
-    IEnumerator ShotCo() 
-    {
-        Projectile();
-        yield return new WaitForSeconds(10f);
-        Debug.Log("Shot");
-    }
-
-    public void Projectile()
-    {
-        firePoint.LookAt(PlayerController.instance.transform.position + new Vector3(0f, 0.5f, 0f));
-
-        Vector3 targetDir = PlayerController.instance.transform.position - transform.position;
-        float angle = Vector3.SignedAngle(targetDir, transform.forward, Vector3.up);
-
-        if (Mathf.Abs(angle) < 30f)
-        {
-            Instantiate(bullet, firePoint.position, firePoint.rotation);
-            timeBetweenShots = 2f;
-            Debug.Log("Enemy Shot");
-        }
-        else
-        {
-            timeBetweenShots = 2f;
+            for(int i = 0; i < amount; i++)
+            {
+                Instantiate(projectile, firePoint.position, firePoint.rotation);
+            }
         }
     }
 }

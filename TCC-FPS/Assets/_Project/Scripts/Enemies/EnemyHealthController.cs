@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class EnemyHealthController : MonoBehaviour
 {
-    public int enemyHealth = 5;
+    public int health;
     void Start()
     {
         
     }
+
     void Update()
     {
         
     }
 
-    public void DamageEnemy(int amout)
+    public void DamageEnemy(int amoumt)
     {
-        enemyHealth -= amout;
-        if(enemyHealth <= 0)
+        health -= amoumt;
+        if(health <= 0)
         {
             Destroy(gameObject);
         }

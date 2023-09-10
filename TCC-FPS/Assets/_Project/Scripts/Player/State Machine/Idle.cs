@@ -8,10 +8,12 @@ public class Idle : Abstract
     }
     public override void LogicsUpdateState(PlayerController player)
     {
-        if (player.velocity.x != 0 || player.velocity.z != 0)
+        if (player.moveInput.x != 0 || player.moveInput.z != 0)
         {
             player.SwitchState(player.walk);
         }
+
+        //player.SwitchState(player.walk);
 
         //Shot
         if (Input.GetMouseButtonDown(0))

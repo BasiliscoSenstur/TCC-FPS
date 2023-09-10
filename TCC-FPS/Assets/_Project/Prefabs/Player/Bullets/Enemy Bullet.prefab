@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5694440981815600207}
   - component: {fileID: 4157901951671201646}
   - component: {fileID: 8455583607846889215}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,3 +264,4 @@ MonoBehaviour:
   impactEffect: {fileID: 3827003671166904976, guid: ef27d700ebc8dc44f9ed4d7556908c62, type: 3}
   playerBullet: 0
   enemyBullet: 1
+  HEAD: 1000000
