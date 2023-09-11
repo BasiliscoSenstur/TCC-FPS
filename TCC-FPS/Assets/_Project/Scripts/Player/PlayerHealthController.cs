@@ -10,10 +10,13 @@ public class PlayerHealthController : MonoBehaviour
     {
         instance = this;
     }
-    public int health;
+    //-----------------------------------//
+
+    public int currenthealth, maxHealth;
     void Start()
     {
-        
+        currenthealth = maxHealth;
+        UIController.instance.UpdateHealthDisplay();
     }
 
     void Update()
@@ -23,10 +26,10 @@ public class PlayerHealthController : MonoBehaviour
 
     public void DemagePlayer(int amount)
     {
-        health -= amount;
-        if (health <= 0)
+        currenthealth -= amount;
+        if (currenthealth <= 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

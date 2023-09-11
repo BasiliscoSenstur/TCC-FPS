@@ -34,13 +34,12 @@ public class BulletController : MonoBehaviour
             {
                 other.gameObject.GetComponent<EnemyHealthController>().DemageEnemy(1);
             }
-
-            Debug.Log("Hit Enemy at " + transform.position);
         }
 
         if (other.CompareTag("Player") && enemyBullet)
         {
             PlayerHealthController.instance.DemagePlayer(1);
+            UIController.instance.UpdateHealthDisplay();
             Debug.Log("Hit Player at " + transform.position);
         }
 
