@@ -26,10 +26,13 @@ public class PlayerHealthController : MonoBehaviour
 
     public void DemagePlayer(int amount)
     {
+        //amount /= 2;
         currenthealth -= amount;
         if (currenthealth <= 0)
         {
             gameObject.SetActive(false);
+            GameManager.instance.PlayerDied();
         }
+        UIController.instance.UpdateHealthDisplay();
     }
 }

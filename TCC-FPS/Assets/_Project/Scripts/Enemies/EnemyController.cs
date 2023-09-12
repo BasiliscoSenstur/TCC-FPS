@@ -62,6 +62,7 @@ public class EnemyController : MonoBehaviour
         {
             return;
         }
+        anim.gameObject.transform.localPosition = new Vector3(0f, -1f, 0f);
         anim.Play(newAnimation);
         currentAnimation = newAnimation;
     }

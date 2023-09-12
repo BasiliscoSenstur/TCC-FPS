@@ -13,7 +13,10 @@ public class EnemyChasing : EnemyAbstract
         enemy.targetPosition = PlayerController.instance.transform.position;
         enemy.targetPosition.y = enemy.transform.position.y;
 
-        enemy.agent.destination = enemy.targetPosition;
+        if (Vector3.Distance(enemy.transform.position, PlayerController.instance.transform.position) >= 5)
+        {
+            enemy.agent.destination = enemy.targetPosition;
+        }
 
         if (enemy.aimCounter > 0)
         {
@@ -25,6 +28,7 @@ public class EnemyChasing : EnemyAbstract
             enemy.SwitchState(enemy.shooting);
         }
 
+        //Lost target
         if (Vector3.Distance(enemy.transform.position, PlayerController.instance.transform.position) >= enemy.stopChasingDistance)
         {
             enemy.isChasing = false;

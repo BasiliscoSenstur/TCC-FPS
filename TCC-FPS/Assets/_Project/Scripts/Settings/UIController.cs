@@ -15,6 +15,9 @@ public class UIController : MonoBehaviour
 
     public Slider healthBar;
     public TMP_Text healthText;
+
+    public CanvasGroup fadeScreen;
+    public bool fadeIn;
     void Start()
     {
 
@@ -28,6 +31,12 @@ public class UIController : MonoBehaviour
     public void UpdateHealthDisplay()
     {
         healthBar.value = PlayerHealthController.instance.currenthealth;
-        healthText.text = "HEALTH: " + PlayerHealthController.instance.currenthealth + "/" + PlayerHealthController.instance.maxHealth;
+        //healthText.text = "HEALTH: " + PlayerHealthController.instance.currenthealth + "/" + PlayerHealthController.instance.maxHealth;
+        Debug.Log("Teste");
+    }
+
+    public void FadeScreen()
+    {
+
     }
 }

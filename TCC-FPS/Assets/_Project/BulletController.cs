@@ -39,7 +39,6 @@ public class BulletController : MonoBehaviour
         if (other.CompareTag("Player") && enemyBullet)
         {
             PlayerHealthController.instance.DemagePlayer(1);
-            UIController.instance.UpdateHealthDisplay();
             Debug.Log("Hit Player at " + transform.position);
         }
 

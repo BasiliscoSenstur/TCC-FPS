@@ -1,9 +1,11 @@
+using TMPro;
 using UnityEngine;
 
 public class EnemyShooting : EnemyAbstract
 {
     public float angle;
     public float counter;
+
     public override void EnterState(EnemyController enemy)
     {
         counter = enemy.fireRate * enemy.numberOfShots;
@@ -30,7 +32,15 @@ public class EnemyShooting : EnemyAbstract
         }
         else
         {
-            enemy.SwitchState(enemy.chasing);
+            // Stop Chasing
+            if (Vector3.Distance(enemy.transform.position, PlayerController.instance.transform.position) <= 5)
+            {
+                enemy.SwitchState(enemy.shooting);
+            }
+            else
+            {
+                enemy.SwitchState(enemy.chasing);
+            }
         }
     }
     public override void ExitState(EnemyController enemy)
