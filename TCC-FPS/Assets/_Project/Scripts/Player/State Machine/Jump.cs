@@ -19,6 +19,11 @@ public class Jump : Abstract
             player.Shot();
         }
 
+        if (Input.GetButtonUp("Jump"))
+        {
+            player.ySpeed += (Physics.gravity.y * 2) * Time.deltaTime;
+        }
+
         player.Movement();
     }
     public override void ExitState(PlayerController player)

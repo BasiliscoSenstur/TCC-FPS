@@ -27,9 +27,8 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator PlayerDiedCo()
     {
-        //UIController.instance.FadeScreen(1);
+        UIController.instance.FadeScreen();
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Debug.Log("Teste" + Time.deltaTime);
     }
 }

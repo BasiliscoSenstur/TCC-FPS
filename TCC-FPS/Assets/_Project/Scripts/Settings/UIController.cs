@@ -20,12 +20,19 @@ public class UIController : MonoBehaviour
     public bool fadeIn;
     void Start()
     {
-
+        FadeScreen();
     }
 
     void Update()
     {
-        
+        if (fadeIn)
+        {
+            fadeScreen.alpha = Mathf.MoveTowards(fadeScreen.alpha, 1f, 0.2f);
+        }
+        else
+        {
+            fadeScreen.alpha = Mathf.MoveTowards(fadeScreen.alpha, 0f, 0.05f);
+        }
     }
 
     public void UpdateHealthDisplay()
@@ -37,6 +44,13 @@ public class UIController : MonoBehaviour
 
     public void FadeScreen()
     {
-
+        if (fadeIn)
+        {
+            fadeIn = false;
+        }
+        else
+        {
+            fadeIn = true;
+        }
     }
 }
