@@ -177,7 +177,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.2
+  m_Time: 0.002
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -243,7 +243,7 @@ TrailRenderer:
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.1
+  m_MinVertexDistance: 0.002
   m_MaskInteraction: 0
   m_Autodestruct: 0
   m_Emitting: 1
@@ -264,4 +264,3 @@ MonoBehaviour:
   impactEffect: {fileID: 3827003671166904976, guid: ef27d700ebc8dc44f9ed4d7556908c62, type: 3}
   playerBullet: 0
   enemyBullet: 1
-  HEAD: 1000000

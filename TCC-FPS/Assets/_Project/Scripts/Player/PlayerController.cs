@@ -19,9 +19,10 @@ public class PlayerController : MonoBehaviour
     public Animator anim;
     public string currentAnimation;
 
-    [Header("Shot")]
+    [Header("Gun")]
+    public GunController activeGun;
     public Transform firePoint;
-    public GameObject bullet;
+    //public GameObject bullet;
 
     [Header("Inputs")]
     public int sensibility;
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 moveInput;
     public Vector2 mouseInput;
     public Vector3 velocity;
+
 
 
     [Header("State")]
@@ -130,10 +132,16 @@ public class PlayerController : MonoBehaviour
     public void Shot()
     {
         RaycastHit hit;
-        if (Physics.Raycast(eyeCamera.position, eyeCamera.forward, out hit, 50f))
+        if (Physics.Raycast(eyeCamera.position, eyeCamera.forward, out hit, 200f))
         {
             firePoint.LookAt(hit.point);
         }
-        Instantiate(bullet, firePoint.position, firePoint.rotation);
+        //Instantiate(bullet, firePoint.position, firePoint.rotation);
+        FireShot();
+    }
+
+    void FireShot()
+    {
+        Instantiate(activeGun.bullet, firePoint.position, firePoint.rotation);
     }
 }
