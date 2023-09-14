@@ -15,12 +15,15 @@ public class UIController : MonoBehaviour
 
     public Slider healthBar;
     public TMP_Text healthText;
+    public TMP_Text ammoText;
+
 
     public CanvasGroup fadeScreen;
     public bool fadeIn;
     void Start()
     {
         FadeScreen();
+        UpdateAmmoDisplay();
     }
 
     void Update()
@@ -39,7 +42,6 @@ public class UIController : MonoBehaviour
     {
         healthBar.value = PlayerHealthController.instance.currenthealth;
         //healthText.text = "HEALTH: " + PlayerHealthController.instance.currenthealth + "/" + PlayerHealthController.instance.maxHealth;
-        Debug.Log("Teste");
     }
 
     public void FadeScreen()
@@ -52,5 +54,10 @@ public class UIController : MonoBehaviour
         {
             fadeIn = true;
         }
+    }
+
+    public void UpdateAmmoDisplay()
+    {
+        ammoText.text = "Ammo:" + PlayerController.instance.activeGun.currentAmmo.ToString();
     }
 }

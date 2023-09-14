@@ -31,8 +31,6 @@ public class PlayerController : MonoBehaviour
     public Vector2 mouseInput;
     public Vector3 velocity;
 
-
-
     [Header("State")]
     public string STATE;
     public Abstract currentState;
@@ -142,6 +140,19 @@ public class PlayerController : MonoBehaviour
 
     void FireShot()
     {
-        Instantiate(activeGun.bullet, firePoint.position, firePoint.rotation);
+        if (activeGun.currentAmmo > 0)
+        {
+            activeGun.currentAmmo--;
+            UIController.instance.UpdateAmmoDisplay();
+            Instantiate(activeGun.bullet, firePoint.position, firePoint.rotation);
+        }
+    }
+
+    public void ReloadGun()
+    {
+        if (activeGun.reloadCounter <= 0)
+        {
+            activeGun.currentAmmo = activeGun.maxAmmo;
+        }
     }
 }

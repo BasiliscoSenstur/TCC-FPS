@@ -22,9 +22,23 @@ public class Run : Abstract
         }
 
         //Shot
-        if (Input.GetMouseButtonDown(0))
+        if (player.activeGun.canAutoFire)
         {
-            player.Shot();
+            if (Input.GetMouseButton(0))
+            {
+                if (player.activeGun.fireCounter <= 0)
+                {
+                    player.Shot();
+                    player.activeGun.fireCounter = player.activeGun.fireRate;
+                }
+            }
+        }
+        else
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                player.Shot();
+            }
         }
 
         player.Movement();
