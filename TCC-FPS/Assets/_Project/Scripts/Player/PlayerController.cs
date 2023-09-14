@@ -1,7 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Net.Http.Headers;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -34,7 +31,7 @@ public class PlayerController : MonoBehaviour
     [Header("State")]
     public string STATE;
     public Abstract currentState;
-    public Idle idle = new Idle();
+    //public Idle idle = new Idle();
     public Run run = new Run();
     public Walk walk = new Walk();
     public Jump jump = new Jump();
@@ -47,7 +44,7 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
-        currentState = idle;
+        currentState = walk;
         currentState.EnterState(this);
     }
 
@@ -150,9 +147,16 @@ public class PlayerController : MonoBehaviour
 
     public void ReloadGun()
     {
-        if (activeGun.reloadCounter <= 0)
-        {
-            activeGun.currentAmmo = activeGun.maxAmmo;
-        }
+        StartCoroutine(ReloadGunCo());
+    }
+
+    public IEnumerator ReloadGunCo()
+    {
+        activeGun.reloadCounter = activeGun.reloadTime;
+
+        yield return new WaitForSeconds(activeGun.reloadTime);
+
+        activeGun.currentAmmo = activeGun.maxAmmo;
+        UIController.instance.UpdateAmmoDisplay();
     }
 }

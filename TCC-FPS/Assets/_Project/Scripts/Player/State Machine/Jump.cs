@@ -11,7 +11,7 @@ public class Jump : Abstract
     {
         if (player.controller.isGrounded)
         {
-            player.SwitchState(player.idle);
+            player.SwitchState(player.walk);
         }
 
         //Shot
@@ -32,11 +32,6 @@ public class Jump : Abstract
             {
                 player.Shot();
             }
-        }
-
-        if (Input.GetButtonUp("Jump"))
-        {
-            player.ySpeed += (Physics.gravity.y * 2) * Time.deltaTime;
         }
 
         player.Movement();

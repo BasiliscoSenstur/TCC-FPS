@@ -1080,7 +1080,6 @@ MonoBehaviour:
   moveInput: {x: 0, y: 0, z: 0}
   mouseInput: {x: 0, y: 0}
   velocity: {x: 0, y: 0, z: 0}
-  coyoteTime: 0
   STATE: 
 --- !u!114 &332202585
 MonoBehaviour:
@@ -1452,7 +1451,7 @@ MonoBehaviour:
   fireCounter: 0
   fireRate: 0
   reloadCounter: 0
-  reloadTime: 0
+  reloadTime: 2
 --- !u!1 &576001181
 GameObject:
   m_ObjectHideFlags: 0

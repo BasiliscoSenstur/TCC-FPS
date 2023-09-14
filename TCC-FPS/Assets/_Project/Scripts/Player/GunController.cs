@@ -13,13 +13,16 @@ public class GunController : MonoBehaviour
     [HideInInspector] public float fireCounter;
     public float fireRate;
 
-    [HideInInspector] public float reloadCounter;
+    public float reloadCounter;
     public float reloadTime;
-
+    void Awake()
+    {
+        currentAmmo = maxAmmo;
+    }
 
     void Start()
     {
-        currentAmmo = maxAmmo;
+
     }
 
     void Update()
@@ -32,6 +35,11 @@ public class GunController : MonoBehaviour
         if (reloadCounter > 0)
         {
             reloadCounter -= Time.deltaTime;
+        }
+
+        if(currentAmmo == 0)
+        {
+            PlayerController.instance.ReloadGun();
         }
     }
 }

@@ -13,45 +13,50 @@ public class Idle : Abstract
             player.SwitchState(player.walk);
         }
 
-        //player.SwitchState(player.walk);
-
         //Shot
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    player.Shot();
-        //}
-
-        //Shot
-        if (player.activeGun.canAutoFire)
+        if (player.activeGun.reloadCounter <= 0)
         {
-            if (Input.GetMouseButton(0))
+            if (player.activeGun.canAutoFire)
             {
-                if (player.activeGun.fireCounter <= 0)
+                if (Input.GetMouseButton(0))
+                {
+                    if (player.activeGun.fireCounter <= 0)
+                    {
+                        player.Shot();
+                        player.activeGun.fireCounter = player.activeGun.fireRate;
+                    }
+                }
+            }
+            else
+            {
+                if (Input.GetMouseButtonDown(0))
                 {
                     player.Shot();
-                    player.activeGun.fireCounter = player.activeGun.fireRate;
                 }
             }
         }
-        else
+
+        //Jump
+        if (player.controller.isGrounded)
         {
-            if (Input.GetMouseButtonDown(0))
+            //player.ySpeed = -0.2f;
+            if (Input.GetButtonDown("Jump"))
             {
-                player.Shot();
+                player.ySpeed = player.jumpForce;
+                Debug.Log("Teste");
             }
         }
 
         //Reload
-         if(Input.GetKeyDown(KeyCode.R)) 
+        if (Input.GetKeyDown(KeyCode.R))
         {
             if (player.activeGun.currentAmmo < player.activeGun.maxAmmo)
             {
-                player.activeGun.reloadCounter = player.activeGun.reloadTime;
-
-                if (player.activeGun.reloadCounter <= 0)
-                {
-                    player.ReloadGun();
-                }
+                player.ReloadGun();
+            }
+            else
+            {
+                return;
             }
         }
     }
