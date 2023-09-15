@@ -10,6 +10,7 @@ public class GunController : MonoBehaviour
     public int startAmmo, currentAmmo, pickUpAmount;
 
     [Header("Fire")]
+    public Transform firePoint;
     public GameObject bullet;
     public bool canAutoFire;
     [HideInInspector] public float fireCounter;

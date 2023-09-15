@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -18,6 +19,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("Gun")]
     public GunController activeGun;
+
+    [HideInInspector] public GunController pistol;
+    [HideInInspector] public GunController machinegun;
+    [HideInInspector] public GunController sniper;
+    [HideInInspector] public GunController rocketLuncher;
+
     public Transform firePoint;
     //public GameObject bullet;
 
@@ -36,6 +43,16 @@ public class PlayerController : MonoBehaviour
     public Walk walk = new Walk();
     public Jump jump = new Jump();
 
+    public enum guns 
+    {
+        Pistol,
+        Machinegun,
+        Sniper,
+        RocketLuncher,
+    }
+
+    public guns gunActive;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -46,6 +63,7 @@ public class PlayerController : MonoBehaviour
     {
         currentState = walk;
         currentState.EnterState(this);
+        activeGun = pistol;
     }
 
     void Update()
@@ -78,6 +96,12 @@ public class PlayerController : MonoBehaviour
         velocity = moveInput;
         velocity.y = ySpeed;
 
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            SwitchGun();
+            Debug.Log("Teste0");
+        }
+
         //Rotation - Mouse Input
         mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * sensibility;
         if (invertX)
@@ -88,6 +112,8 @@ public class PlayerController : MonoBehaviour
         {
             mouseInput.y = -mouseInput.y;
         }
+
+        firePoint = activeGun.firePoint;
 
         Rotation();
 
@@ -131,7 +157,6 @@ public class PlayerController : MonoBehaviour
         {
             firePoint.LookAt(hit.point);
         }
-        //Instantiate(bullet, firePoint.position, firePoint.rotation);
         FireShot();
     }
 
@@ -145,19 +170,51 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //public void ReloadGun()
-    //{
-    //    StartCoroutine(ReloadGunCo());
-    //}
+    public void ChangeGun()
+    {
+        switch (gunActive)
+        {
+            case guns.Pistol:
+                pistol.gameObject.SetActive(false);
+                activeGun = machinegun;
+                gunActive = guns.Machinegun;
+                machinegun.gameObject.SetActive(true);
+                break;
 
-    //public IEnumerator ReloadGunCo()
-    //{
-    //    activeGun.reloadCounter = activeGun.reloadTime;
+            case guns.Machinegun:
+                machinegun.gameObject.SetActive(false);
+                activeGun = sniper;
+                gunActive = guns.Sniper;
+                sniper.gameObject.SetActive(true);
+                break;
 
-    //    yield return new WaitForSeconds(activeGun.reloadTime);
+            case guns.Sniper:
+                sniper.gameObject.SetActive(false);
+                activeGun = rocketLuncher;
+                gunActive = guns.RocketLuncher;
+                rocketLuncher.gameObject.SetActive(true);
+                break;
 
-    //    activeGun.currentAmmo = activeGun.maxAmmo;
-    //    UIController.instance.UpdateAmmoDisplay();
-    //}
+            case guns.RocketLuncher:
+                rocketLuncher.gameObject.SetActive(false);
+                activeGun = pistol;
+                gunActive = guns.Pistol;
+                pistol.gameObject.SetActive(true);
+                break;
+        }
+    }
 
+    public void SwitchGun()
+    {
+        StartCoroutine(OnOffGunCo());
+    }
+
+    IEnumerator OnOffGunCo()
+    {
+        activeGun.enabled = false;
+        yield return new WaitForSeconds(1f);
+        ChangeGun();
+        activeGun.enabled = true;
+        UIController.instance.UpdateAmmoDisplay();
+    }
 }
