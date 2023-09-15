@@ -145,18 +145,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ReloadGun()
-    {
-        StartCoroutine(ReloadGunCo());
-    }
+    //public void ReloadGun()
+    //{
+    //    StartCoroutine(ReloadGunCo());
+    //}
 
-    public IEnumerator ReloadGunCo()
-    {
-        activeGun.reloadCounter = activeGun.reloadTime;
+    //public IEnumerator ReloadGunCo()
+    //{
+    //    activeGun.reloadCounter = activeGun.reloadTime;
 
-        yield return new WaitForSeconds(activeGun.reloadTime);
+    //    yield return new WaitForSeconds(activeGun.reloadTime);
 
-        activeGun.currentAmmo = activeGun.maxAmmo;
-        UIController.instance.UpdateAmmoDisplay();
-    }
+    //    activeGun.currentAmmo = activeGun.maxAmmo;
+    //    UIController.instance.UpdateAmmoDisplay();
+    //}
+
 }

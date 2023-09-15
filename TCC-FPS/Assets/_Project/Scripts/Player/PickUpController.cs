@@ -4,18 +4,26 @@ using UnityEngine;
 
 public class PickUpController : MonoBehaviour
 {
-    public bool health, bullet;
+    public bool health;
+    public bool bullet;
 
     public void OnTriggerEnter(Collider other)
     {
         if (health)
         {
-            PlayerHealthController.instance.HealPlayer(12);
-            Destroy(gameObject);
+            if (PlayerHealthController.instance.currenthealth < PlayerHealthController.instance.maxHealth)
+            {
+                PlayerHealthController.instance.HealPlayer(12);
+                Destroy(gameObject);
+            }
         }
         if (bullet)
         {
-            //Bullets
+            if (PlayerController.instance.activeGun.currentAmmo < PlayerController.instance.activeGun.maxAmmo)
+            {
+                PlayerController.instance.activeGun.PickAmmo(PlayerController.instance.activeGun.pickUpAmount);
+                Destroy(gameObject);
+            }
         }
     }
 }

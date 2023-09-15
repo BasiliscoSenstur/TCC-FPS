@@ -39,18 +39,18 @@ public class Walk : Abstract
             }
         }
 
-        //Reload
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            if (player.activeGun.currentAmmo < player.activeGun.maxAmmo)
-            {
-                player.ReloadGun();
-            }
-            else
-            {
-                return;
-            }
-        }
+        ////Reload
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    if (player.activeGun.currentAmmo < player.activeGun.maxAmmo)
+        //    {
+        //        player.ReloadGun();
+        //    }
+        //    else
+        //    {
+        //        return;
+        //    }
+        //}
 
         player.Movement();
     }

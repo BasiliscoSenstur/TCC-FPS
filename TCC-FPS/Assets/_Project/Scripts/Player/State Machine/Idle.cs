@@ -47,18 +47,18 @@ public class Idle : Abstract
             }
         }
 
-        //Reload
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            if (player.activeGun.currentAmmo < player.activeGun.maxAmmo)
-            {
-                player.ReloadGun();
-            }
-            else
-            {
-                return;
-            }
-        }
+        ////Reload
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    if (player.activeGun.currentAmmo < player.activeGun.maxAmmo)
+        //    {
+        //        player.ReloadGun();
+        //    }
+        //    else
+        //    {
+        //        return;
+        //    }
+        //}
     }
     public override void ExitState(PlayerController player)
     {

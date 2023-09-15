@@ -58,6 +58,6 @@ public class UIController : MonoBehaviour
 
     public void UpdateAmmoDisplay()
     {
-        ammoText.text = "Ammo:" + PlayerController.instance.activeGun.currentAmmo.ToString();
+        ammoText.text = "Ammo:" + PlayerController.instance.activeGun.currentAmmo.ToString() + "/" + PlayerController.instance.activeGun.maxAmmo.ToString();
     }
 }
