@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7128473191999096757
 Transform:
   m_ObjectHideFlags: 0
@@ -48,14 +48,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAmmo: 108
   startAmmo: 42
-  currentAmmo: 0
   pickUpAmount: 9
-  firePoint: {fileID: 6883983760013211638}
-  bullet: {fileID: 2507797363306103509, guid: f8d5af78ca0381a42a1d31a2be8a9e25, type: 3}
+  currentAmmo: 0
   canAutoFire: 0
-  fireCounter: 0
+  bullet: {fileID: 2507797363306103509, guid: f8d5af78ca0381a42a1d31a2be8a9e25, type: 3}
+  bulletDamage: 3
+  firePoint: {fileID: 6883983760013211638}
   fireRate: 0
+  fireCounter: 0
   reloadCounter: 0
+  aimSpeed: 55
+  aimFov: 55
 --- !u!1 &6538403466293484537
 GameObject:
   m_ObjectHideFlags: 0

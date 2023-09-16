@@ -19,14 +19,21 @@ public class PlayerController : MonoBehaviour
 
     [Header("Gun")]
     public GunController activeGun;
+    [HideInInspector] public Transform firePoint;
+    public enum guns
+    {
+        Pistol,
+        Machinegun,
+        Sniper,
+        RocketLuncher,
+    }
+    [HideInInspector] public guns gunActive;
 
     [HideInInspector] public GunController pistol;
     [HideInInspector] public GunController machinegun;
     [HideInInspector] public GunController sniper;
     [HideInInspector] public GunController rocketLuncher;
-
-    public Transform firePoint;
-    //public GameObject bullet;
+    [HideInInspector] public bool aim;
 
     [Header("Inputs")]
     public int sensibility;
@@ -38,20 +45,9 @@ public class PlayerController : MonoBehaviour
     [Header("State")]
     public string STATE;
     public Abstract currentState;
-    //public Idle idle = new Idle();
     public Run run = new Run();
     public Walk walk = new Walk();
     public Jump jump = new Jump();
-
-    public enum guns 
-    {
-        Pistol,
-        Machinegun,
-        Sniper,
-        RocketLuncher,
-    }
-
-    public guns gunActive;
 
     private void Awake()
     {
@@ -96,11 +92,12 @@ public class PlayerController : MonoBehaviour
         velocity = moveInput;
         velocity.y = ySpeed;
 
-        if (Input.GetKeyDown(KeyCode.T))
+        //Change Gun
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             SwitchGun();
-            Debug.Log("Teste0");
         }
+        firePoint = activeGun.firePoint;
 
         //Rotation - Mouse Input
         mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * sensibility;
@@ -113,7 +110,15 @@ public class PlayerController : MonoBehaviour
             mouseInput.y = -mouseInput.y;
         }
 
-        firePoint = activeGun.firePoint;
+        //aim
+        if (Input.GetMouseButtonDown(1))
+        {
+            aim = true;
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            aim = false;
+        }
 
         Rotation();
 
@@ -212,8 +217,8 @@ public class PlayerController : MonoBehaviour
     IEnumerator OnOffGunCo()
     {
         activeGun.enabled = false;
-        yield return new WaitForSeconds(1f);
         ChangeGun();
+        yield return new WaitForSeconds(0.27f);
         activeGun.enabled = true;
         UIController.instance.UpdateAmmoDisplay();
     }

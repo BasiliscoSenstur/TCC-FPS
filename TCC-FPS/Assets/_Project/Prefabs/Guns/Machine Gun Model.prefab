@@ -23,13 +23,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3878167127815943262}
-  m_LocalRotation: {x: -0.000000029802322, y: -0.013711035, z: 4.656613e-10, w: 0.99990606}
-  m_LocalPosition: {x: -0.006, y: -0.006, z: 0.924}
-  m_LocalScale: {x: 0.035749488, y: 0.024115765, z: 0.027013147}
+  m_LocalRotation: {x: -0.009693474, y: -0.7071637, z: -0.7069169, w: -0.009696857}
+  m_LocalPosition: {x: 0.0003000001, y: 0.05585265, z: 0.007580498}
+  m_LocalScale: {x: 0.0017874743, y: 0.0012057883, z: 0.0013506573}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1795059058655860461}
-  m_Father: {fileID: 4187589826811268711}
+  m_Father: {fileID: 9180581295844157452}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4187589826811268708
@@ -62,7 +62,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9180581295844157452}
-  - {fileID: 4534963548847753595}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -80,14 +79,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAmmo: 324
   startAmmo: 99
-  currentAmmo: 0
   pickUpAmount: 33
-  firePoint: {fileID: 4534963548847753595}
-  bullet: {fileID: 3056488672332898774, guid: 39e1f1ad961e5104c898561159ee89b1, type: 3}
+  currentAmmo: 0
   canAutoFire: 1
-  fireCounter: 0
+  bullet: {fileID: 3056488672332898774, guid: 39e1f1ad961e5104c898561159ee89b1, type: 3}
+  bulletDamage: 1
+  firePoint: {fileID: 4534963548847753595}
   fireRate: 0.1
+  fireCounter: 0
   reloadCounter: 0
+  aimSpeed: 40
+  aimFov: 40
 --- !u!1 &6544638269483381721
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,7 +265,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -4216859302048453862, guid: 17e85fb7c0823b9448c039c7496c37f3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4534963548847753595}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17e85fb7c0823b9448c039c7496c37f3, type: 3}
 --- !u!4 &9180581295844157452 stripped

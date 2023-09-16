@@ -7,16 +7,19 @@ public class GunController : MonoBehaviour
 {
     [Header("Ammo")]
     public int maxAmmo;
-    public int startAmmo, currentAmmo, pickUpAmount;
+    public int startAmmo, pickUpAmount;
+    [HideInInspector] public int currentAmmo;
 
     [Header("Fire")]
-    public Transform firePoint;
-    public GameObject bullet;
     public bool canAutoFire;
-    [HideInInspector] public float fireCounter;
+    public GameObject bullet;
+    public int bulletDamage;
+    public Transform firePoint;
     public float fireRate;
+    [HideInInspector] public float fireCounter;
     [HideInInspector] public float reloadCounter;
-    //public float reloadTime;
+    public float aimSpeed;
+    public int aimFov;
 
     void Awake()
     {
@@ -39,11 +42,6 @@ public class GunController : MonoBehaviour
         {
             reloadCounter -= Time.deltaTime;
         }
-
-        //if(currentAmmo == 0)
-        //{
-        //    PlayerController.instance.ReloadGun();
-        //}
     }
 
     public void PickAmmo(int amount)

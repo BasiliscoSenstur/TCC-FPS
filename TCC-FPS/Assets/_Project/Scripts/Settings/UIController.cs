@@ -17,7 +17,6 @@ public class UIController : MonoBehaviour
     public TMP_Text healthText;
     public TMP_Text ammoText;
 
-
     public CanvasGroup fadeScreen;
     public bool fadeIn;
     void Start()

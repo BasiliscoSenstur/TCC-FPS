@@ -27,12 +27,12 @@ public class BulletController : MonoBehaviour
         {
             if (transform.position.y > 1.3)
             {
-                other.gameObject.GetComponent<EnemyHealthController>().DemageEnemy(10);
+                other.gameObject.GetComponent<EnemyHealthController>().DemageEnemy(PlayerController.instance.activeGun.bulletDamage * 27);
                 Debug.Log("Headshot");
             }
             else
             {
-                other.gameObject.GetComponent<EnemyHealthController>().DemageEnemy(1);
+                other.gameObject.GetComponent<EnemyHealthController>().DemageEnemy(PlayerController.instance.activeGun.bulletDamage);
             }
         }
 

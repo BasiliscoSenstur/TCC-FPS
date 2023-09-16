@@ -153,14 +153,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAmmo: 12
   startAmmo: 3
-  currentAmmo: 0
   pickUpAmount: 3
-  firePoint: {fileID: 383349033665151164}
-  bullet: {fileID: 5036829011976950388, guid: 996728c503336f747ab0defe699dcba8, type: 3}
+  currentAmmo: 0
   canAutoFire: 0
-  fireCounter: 0
+  bullet: {fileID: 5036829011976950388, guid: 996728c503336f747ab0defe699dcba8, type: 3}
+  bulletDamage: 20
+  firePoint: {fileID: 383349033665151164}
   fireRate: 3
+  fireCounter: 0
   reloadCounter: 0
+  aimSpeed: 20
+  aimFov: 57
 --- !u!1 &5954437940485445356
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 383349033665151164}
   m_Layer: 8
-  m_Name: Fire Point (1)
+  m_Name: Fire Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

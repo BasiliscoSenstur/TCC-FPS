@@ -31,9 +31,6 @@ public class EnemyController : MonoBehaviour
     public EnemyChasing chasing = new EnemyChasing();
     public EnemyShooting shooting = new EnemyShooting();
 
-    [Header("DEBUG")]
-    public string SHOOTED;
-
     void Start()
     {
         startPosition = transform.position;
@@ -46,7 +43,6 @@ public class EnemyController : MonoBehaviour
     {
         currentState.LogicsUpdate(this);
         STATE = currentState.ToString();
-        SHOOTED = shooting.counter.ToString();
     }
 
     public void SwitchState(EnemyAbstract newState)
@@ -72,7 +68,6 @@ public class EnemyController : MonoBehaviour
         StartCoroutine(ShotCo(amount));
     }
 
-
     IEnumerator ShotCo(int amount)
     {
         if (Mathf.Abs(shooting.angle) < 30f)
@@ -83,7 +78,6 @@ public class EnemyController : MonoBehaviour
 
                 yield return new WaitForSeconds(fireRate);
             }
-            Debug.Log("Shooted");
         }
     }
 }

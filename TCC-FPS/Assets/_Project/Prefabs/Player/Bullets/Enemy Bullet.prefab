@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e84c43e1b2077894ebfaddca9cd8d2e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 54
+  bulletSpeed: 270
   impactEffect: {fileID: 3827003671166904976, guid: ef27d700ebc8dc44f9ed4d7556908c62, type: 3}
   playerBullet: 0
   enemyBullet: 1

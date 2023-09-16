@@ -8,11 +8,6 @@ public class Walk : Abstract
     }
     public override void LogicsUpdateState(PlayerController player)
     {
-        //if (player.velocity.x == 0 && player.velocity.z == 0)
-        //{
-        //    player.SwitchState(player.idle);
-        //}
-
         //Run
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -38,19 +33,6 @@ public class Walk : Abstract
                 player.Shot();
             }
         }
-
-        ////Reload
-        //if (Input.GetKeyDown(KeyCode.R))
-        //{
-        //    if (player.activeGun.currentAmmo < player.activeGun.maxAmmo)
-        //    {
-        //        player.ReloadGun();
-        //    }
-        //    else
-        //    {
-        //        return;
-        //    }
-        //}
 
         player.Movement();
     }
