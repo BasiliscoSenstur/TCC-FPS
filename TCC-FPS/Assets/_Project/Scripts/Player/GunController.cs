@@ -15,11 +15,14 @@ public class GunController : MonoBehaviour
     public GameObject bullet;
     public int bulletDamage;
     public Transform firePoint;
+    public Transform aimGunPosition, initialGunPosition;
+    Transform gunPosition;
     public float fireRate;
     [HideInInspector] public float fireCounter;
     [HideInInspector] public float reloadCounter;
     public float aimSpeed;
     public int aimFov;
+    public bool foundGun;
 
     void Awake()
     {
@@ -28,7 +31,7 @@ public class GunController : MonoBehaviour
 
     void Start()
     {
-
+        gunPosition = GetComponent<Transform>();
     }
 
     void Update()
@@ -41,6 +44,15 @@ public class GunController : MonoBehaviour
         if (reloadCounter > 0)
         {
             reloadCounter -= Time.deltaTime;
+        }
+
+        if (PlayerController.instance.aim)
+        {
+            gunPosition.position = Vector3.MoveTowards(transform.position, aimGunPosition.position, PlayerController.instance.activeGun.aimSpeed);
+        }
+        else
+        {
+            gunPosition.position = Vector3.MoveTowards(transform.position, initialGunPosition.position, PlayerController.instance.activeGun.aimSpeed);
         }
     }
 

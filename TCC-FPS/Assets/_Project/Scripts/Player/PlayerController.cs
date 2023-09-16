@@ -180,31 +180,62 @@ public class PlayerController : MonoBehaviour
         switch (gunActive)
         {
             case guns.Pistol:
-                pistol.gameObject.SetActive(false);
-                activeGun = machinegun;
-                gunActive = guns.Machinegun;
-                machinegun.gameObject.SetActive(true);
+                if (machinegun.foundGun)
+                {
+                    pistol.gameObject.SetActive(false);
+                    activeGun = machinegun;
+                    gunActive = guns.Machinegun;
+                    machinegun.gameObject.SetActive(true);
+                }else 
+                {
+                    gunActive = guns.Machinegun;
+                    SwitchGun();
+                }
                 break;
 
             case guns.Machinegun:
-                machinegun.gameObject.SetActive(false);
-                activeGun = sniper;
-                gunActive = guns.Sniper;
-                sniper.gameObject.SetActive(true);
+                if (sniper.foundGun)
+                {
+                    machinegun.gameObject.SetActive(false);
+                    activeGun = sniper;
+                    gunActive = guns.Sniper;
+                    sniper.gameObject.SetActive(true);
+                }
+                else
+                {
+                    gunActive = guns.Sniper;
+                    SwitchGun();
+                }
                 break;
 
             case guns.Sniper:
-                sniper.gameObject.SetActive(false);
-                activeGun = rocketLuncher;
-                gunActive = guns.RocketLuncher;
-                rocketLuncher.gameObject.SetActive(true);
+                if (rocketLuncher.foundGun)
+                {
+                    sniper.gameObject.SetActive(false);
+                    activeGun = rocketLuncher;
+                    gunActive = guns.RocketLuncher;
+                    rocketLuncher.gameObject.SetActive(true);
+                }
+                else
+                {
+                    gunActive = guns.RocketLuncher;
+                    SwitchGun();
+                }
                 break;
 
             case guns.RocketLuncher:
-                rocketLuncher.gameObject.SetActive(false);
-                activeGun = pistol;
-                gunActive = guns.Pistol;
-                pistol.gameObject.SetActive(true);
+                if (pistol.foundGun)
+                {
+                    rocketLuncher.gameObject.SetActive(false);
+                    activeGun = pistol;
+                    gunActive = guns.Pistol;
+                    pistol.gameObject.SetActive(true);
+                }
+                else
+                {
+                    gunActive = guns.Pistol;
+                    SwitchGun();
+                }
                 break;
         }
     }
